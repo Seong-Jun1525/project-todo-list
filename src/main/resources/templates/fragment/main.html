@@ -1,0 +1,73 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="defaultContentFragment">
+	<div class="main-header">
+		<p class="main-header-title">
+			<span>할일 추가</span>
+		</p>
+	</div>
+	
+	<div id="todoForm" class="todo-form">
+		<div class="mb-3">
+			<label for="todoTitle" class="form-label">제목</label>
+			<input type="text" name="title" class="form-control" id="todoTitle" placeholder="">
+			<div class="d-flex justify-content-end">
+				<span id="todoTitleCount">0</span>&nbsp;/ 20
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="todoContent" class="form-label">내용</label>
+			<textarea class="form-control" name="content" id="todoContent" rows="3"></textarea>
+			<div class="d-flex justify-content-end">
+				<span id="todoContentCount">0</span>&nbsp;/ 100
+			</div>
+		</div>
+		<div class="d-flex justify-content-end">
+			<button id="registerTodoBtn" class="btn btn-secondary">추가</button>
+		</div>
+	</div>
+	
+	<div class="todo-list">
+		<div class="todo-list-header d-flex flex-row-reverse">
+			<p>
+				<span>3</span> / <span>5</span>
+			</p>
+		</div>
+		<div class="todo-list-content d-flex align-items-center justify-content-center">
+			<div id="todoListForm">
+				<div class="d-flex justify-content-end mb-3">
+					<button class="me-3 btn btn-info" type="button" id="selectAll">전체 선택</button>
+					<button class="btn btn-success" type="button" id="submitCompletedTodoBtn">완료하기</button>
+				</div>
+				<table id="todoTable" class="todo-list-table table table-striped table-secondary">
+					<thead>
+						<tr>
+							<th scope="col">번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">완료 여부</th>
+							<th scope="col">등록 날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${todoList != null}" th:each="todo : ${todoList}">
+							<th scope="row" th:text="${todo.no}">
+								번호
+							</th>
+							<td th:text="${todo.title}">제목</td>
+							
+							<!-- 할일 체크 완료일 경우 checked + readonly -->
+							<td th:if="${todo.done} == 'N'">
+								<input type="checkbox" class="doneCheck" th:value="${todo.no}" />
+							</td>
+							<td th:if="${todo.done} == 'Y'">
+								<input type="checkbox" checked disabled />
+							</td>
+							<td th:text="${todo.regDate}">날짜</td>
+						</tr>
+						<tr th:unless="${todoList}">
+							<td>등록된 할 일이 없습니다.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
