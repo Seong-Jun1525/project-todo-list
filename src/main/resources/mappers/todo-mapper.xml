@@ -17,10 +17,21 @@
 			</foreach>
 	</update>
 	
+	<delete id="deleteTodo">
+		DELETE FROM TB_TODO
+		WHERE NO = #{no}
+	</delete>
+	
 	<select id="selectTodoList" resultType="com.sj.todo.model.dto.TodoListDTO">
 		SELECT NO, TITLE, DONE, REG_DATE
 		FROM TB_TODO
 		<!-- 추후 로그인 구현 시 WHERE 절 추가 예정 -->
 		ORDER BY DONE, REG_DATE DESC
+	</select>
+	
+	<select id="findTodoById" resultType="com.sj.todo.model.vo.Todo">
+		SELECT *
+		FROM TB_TODO
+		WHERE NO = #{no}
 	</select>
 </mapper>

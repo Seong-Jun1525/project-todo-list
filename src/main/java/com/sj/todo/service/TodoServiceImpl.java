@@ -35,4 +35,14 @@ public class TodoServiceImpl implements TodoService {
 		return todoDAO.updateTodo(todoUpdateDTO);
 	}
 
+	@Override
+	public Todo findTodoById(int no) {
+		return todoDAO.findTodoById(no);
+	}
+
+	@Override
+	public int deleteTodo(int no) {
+		return todoDAO.deleteTodo(no);
+	}
+
 }

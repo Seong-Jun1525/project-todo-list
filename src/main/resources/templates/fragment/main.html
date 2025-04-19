@@ -47,12 +47,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${todoList != null}" th:each="todo : ${todoList}">
-							<th scope="row" th:text="${todo.no}">
-								번호
-							</th>
-							<td th:text="${todo.title}">제목</td>
-							
+						<tr 
+							th:if="${todoList != null}"
+							th:each="todo : ${todoList}"
+						>
+							<th scope="row" th:text="${todo.no}">번호</th>
+							<td 
+								th:text="${todo.title}"
+								th:data-url="${todo.no}"
+								data-bs-toggle="modal" 
+								data-bs-target="#todoModal"
+							>
+								제목
+							</td>
 							<!-- 할일 체크 완료일 경우 checked + readonly -->
 							<td th:if="${todo.done} == 'N'">
 								<input type="checkbox" class="doneCheck" th:value="${todo.no}" />
@@ -67,6 +74,31 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="todoModal" tabindex="-1" aria-labelledby="todoModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="todoModalLabel">
+						#<span class="me-1 todo-no"></span>
+						<span class="todo-title"></span>
+					</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="todo-content">
+
+					</div>
+					<div class="text-end todo-reg-date"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="modifyBtn" class="btn btn-info">수정</button>
+					<button type="button" id="deleteBtn" class="btn btn-danger">삭제</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				</div>
 			</div>
 		</div>
 	</div>

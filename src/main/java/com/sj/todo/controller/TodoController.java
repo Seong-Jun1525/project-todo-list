@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.todo.model.dto.TodoListDTO;
 import com.sj.todo.model.vo.Todo;
@@ -34,19 +35,14 @@ public class TodoController {
 		return "index";
 	}
 	
-	@PostMapping("/todos")
-	public String registerTodo(Todo todo) {
-		System.out.println("요청!");
-		System.out.println(todo);
+	// 할 일 상세 모달
+	@GetMapping("/todos")
+	@ResponseBody
+	public Todo findTodoById(int no) {
+		System.out.println(no);
 		
-		int result = todoService.insertTodo(todo);
+		Todo todo = todoService.findTodoById(no);
 		
-		if(result > 0) {
-			return "redirect:/";
-		} else {
-			// TODO: 에러페이지 구현
-		}
-
-		return "redirect:/";
+		return todo;
 	}
 }

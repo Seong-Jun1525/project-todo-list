@@ -17,4 +17,8 @@ public interface TodoDAO {
 
 	int updateTodo(TodoUpdateDTO todoUpdateDTO);
 
+	Todo findTodoById(int no);
+
+	int deleteTodo(int no);
+
 }

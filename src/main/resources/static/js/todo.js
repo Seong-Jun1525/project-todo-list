@@ -6,6 +6,8 @@ $(document).ready(function() {
     clickRegisterBtn();
     doneAllCheck();
     submitCompletedTodoBtn();
+    detailModalFunc();
+    deleteTodoFunc();
 });
 
 // 제목 글자 수 제한
@@ -81,29 +83,33 @@ const clickRegisterBtn = () => {
             // console.log($todoTitleValue);
             // console.log($todoContentValue);
             $.ajax({
-                url: "/todo/todos",
+                url: "/todo/api/todos",
                 method: "post",
                 data: {
                     title: $todoTitleValue,
                     content: $todoContentValue
                 },
                 success: (data) => {
-                    Swal.fire({
-                        title: "할 일 등록",
-                        icon: "success",
-                        text: "할 일을 등록했습니다!"
-                    }).then((result) => {
-                        if(result.isConfirmed) {
-                            location.reload(true);
-                        }
-                    })
+                    if(data === "success") {
+                        Swal.fire({
+                            title: "할 일 등록",
+                            icon: "success",
+                            text: "할 일을 등록했습니다!"
+                        }).then((result) => {
+                            if(result.isConfirmed) {
+                                location.reload(true);
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "할 일 등록",
+                            icon: "error",
+                            text: "오류입니다!"
+                        });
+                    }
                 },
                 error: (error) => {
-                    Swal.fire({
-                        title: "할 일 등록",
-                        icon: "error",
-                        text: "오류입니다!"
-                    });
+                    console.log("error");
                 }
             });
         }
@@ -166,6 +172,7 @@ function checkFun(checkFlag, $checkBoxList) {
     }
 }
 
+// 할 일 완료 처리 기능
 const submitCompletedTodoBtn = () => {
     $("#submitCompletedTodoBtn").click(() => {
         let updateTodoList = $("#todoListForm tbody input[type=checkbox]:checked");
@@ -179,12 +186,8 @@ const submitCompletedTodoBtn = () => {
             }
         }
 
-        let resultSwalTitle = "";
-        let resultSwalIcon = "";
-        let resultSwalText = "";
-
         $.ajax({
-            url: "api/todos",
+            url: "/todo/api/todos",
             method: "patch",
             data: {
                 no: no,
@@ -192,25 +195,99 @@ const submitCompletedTodoBtn = () => {
             },
             success: (data) => {
                 if(data === "success") {
-                    resultSwalTitle = "할 일 완료";
-                    resultSwalIcon = "success";
-                    resultSwalText = "할 일 완료 처리가 되었습니다.";
-                } else {
-                    resultSwalTitle = "오류";
-                    resultSwalIcon = "error";
-                    resultSwalText = "오류입니다.";
+                    Swal.fire({
+                        title: "할 일 완료",
+                        icon: "success",
+                        text: "할 일 완료 처리가 되었습니다."
+                    }).then((result) => {    
+                        if(result.isConfirmed) location.reload(true); 
+                    });
                 }
-
-                Swal.fire({
-                    title: resultSwalTitle,
-                    icon: resultSwalIcon,
-                    text: resultSwalText
-                });
-
-                location.reload(true);
             },
             error: (error) => {
-                console.log(error);
+                if(error === "failed") {
+                    Swal.fire({
+                        title: "오류",
+                        icon: "error",
+                        text: "오류입니다."
+                    }).then((result) => {       
+                        if(result.isConfirmed) location.reload(true); 
+                    });
+                }
+            }
+        });
+    });
+}
+
+// 
+const detailModalFunc = () => {
+    const $todoList = $("#todoTable tbody tr td[data-url]");
+    console.log($todoList);
+    for(let item of $todoList) {
+        // console.log(item);
+        item.addEventListener("click", (e) => {
+            // console.log("click");
+            // console.log(e.target.getAttribute("data-url"));
+            const todoNo = `${e.target.getAttribute("data-url")}`;
+            $.ajax({
+                url: "/todo/todos",
+                method: "get",
+                data: {
+                    no: `${todoNo}`
+                },
+                success: (data) => {
+                    console.log(data);
+                    $("#todoModal .todo-no").text(data.no);
+                    $("#todoModal .todo-title").text(data.title);
+                    $("#todoModal .todo-content").text(data.content);
+                    $("#todoModal .todo-reg-date").text(data.regDate);
+
+                    if(data.done === "Y") {
+                        $("#todoModal #modifyBtn").attr("disabled", true);
+                    }
+
+                },
+                error: (error) => {
+                    console.log("error " + error);
+                }
+            });
+        });
+    }
+}
+
+// 할일 삭제
+const deleteTodoFunc = () => {
+    $("#todoModal #deleteBtn").click(() => {
+        console.log("click");
+        $.ajax({
+            url: "/todo/api/todos",
+            method: "delete",
+            data: {
+                no: $("#todoModal .todo-no").text(),
+            },
+            success: (data) => {
+                console.log("success");
+                if(data === "success") {
+                    Swal.fire({
+                        title: "할 일 삭제",
+                        icon: "success",
+                        text: "할 일 삭제 처리가 완료되었습니다."
+                    }).then((result) => {       
+                        if(result.isConfirmed) location.reload(true); 
+                    });
+                }
+            },
+            error: (error) => {
+                console.log("error : " + error);
+                if(error === "failed") {
+                    Swal.fire({
+                        title: "오류",
+                        icon: "error",
+                        text: "오류입니다."
+                    }).then((result) => {       
+                        if(result.isConfirmed) location.reload(true); 
+                    });
+                }
             }
         });
     });
