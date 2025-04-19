@@ -8,9 +8,19 @@
 		VALUES(SEQ_TNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT)
 	</insert>
 	
+	<update id="updateTodo">
+		UPDATE TB_TODO SET 
+			DONE = 'Y'
+		WHERE 
+			<foreach item="item" index="i" collection="no" open="NO in (" separator="," close=")">
+				#{item}
+			</foreach>
+	</update>
+	
 	<select id="selectTodoList" resultType="com.sj.todo.model.dto.TodoListDTO">
 		SELECT NO, TITLE, DONE, REG_DATE
 		FROM TB_TODO
 		<!-- 추후 로그인 구현 시 WHERE 절 추가 예정 -->
+		ORDER BY DONE, REG_DATE DESC
 	</select>
 </mapper>

@@ -172,20 +172,46 @@ const submitCompletedTodoBtn = () => {
 
         let no = [];
 
-        for(let item of updateTodoList) no.push(item.value);
+        // for(let item of updateTodoList) no.push(item.value);
+        for(let item of updateTodoList) {
+            if(!item.hasAttribute("disabled")) {
+                no.push(item.value);
+            }
+        }
+
+        let resultSwalTitle = "";
+        let resultSwalIcon = "";
+        let resultSwalText = "";
 
         $.ajax({
-            url: "todos",
-            method: "put",
+            url: "api/todos",
+            method: "patch",
             data: {
-                no: no
+                no: no,
+                status: 'Y'
             },
             success: (data) => {
-                console.log("성공");
+                if(data === "success") {
+                    resultSwalTitle = "할 일 완료";
+                    resultSwalIcon = "success";
+                    resultSwalText = "할 일 완료 처리가 되었습니다.";
+                } else {
+                    resultSwalTitle = "오류";
+                    resultSwalIcon = "error";
+                    resultSwalText = "오류입니다.";
+                }
+
+                Swal.fire({
+                    title: resultSwalTitle,
+                    icon: resultSwalIcon,
+                    text: resultSwalText
+                });
+
+                location.reload(true);
             },
             error: (error) => {
                 console.log(error);
             }
-        })
+        });
     });
 }

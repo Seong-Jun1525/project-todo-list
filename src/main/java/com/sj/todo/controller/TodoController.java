@@ -49,14 +49,4 @@ public class TodoController {
 
 		return "redirect:/";
 	}
-	
-	@PutMapping("/todos")
-	public String updateTodo(int no) {
-		
-		System.out.println("*** : " + no);
-		
-		// int result = todoService.updateTodo(completedTodoDTO);
-		
-		return "redirect:/";
-	}
 }
