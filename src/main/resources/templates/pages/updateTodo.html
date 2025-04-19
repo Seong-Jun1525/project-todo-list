@@ -1,0 +1,21 @@
+<div xmlns="http://www.thymeleaf.org" th:fragment="updateTodoFragment">
+	<div id="updateTodoForm" class="todo-form">
+		<div class="mb-3">
+			<label for="todoTitle" class="form-label">제목</label>
+			<input type="text" th:value="${todo.title}" name="title" class="form-control" id="todoTitle" placeholder="">
+			<div class="d-flex justify-content-end">
+				<span id="todoTitleCount">0</span>&nbsp;/ 20
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="todoContent" class="form-label">내용</label>
+			<textarea th:text="${todo.content}" class="form-control" name="content" id="todoContent" rows="3"></textarea>
+			<div class="d-flex justify-content-end">
+				<span id="todoContentCount">0</span>&nbsp;/ 100
+			</div>
+		</div>
+		<div class="d-flex justify-content-end">
+			<button id="registerTodoBtn" class="btn btn-secondary">추가</button>
+		</div>
+	</div>
+</div>

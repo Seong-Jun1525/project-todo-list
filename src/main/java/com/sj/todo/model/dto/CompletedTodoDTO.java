@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class TodoUpdateDTO {
+public class CompletedTodoDTO {
 	private List<Integer> no;
 	private String status;
 }

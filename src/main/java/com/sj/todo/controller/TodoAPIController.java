@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sj.todo.model.dto.TodoUpdateDTO;
+import com.sj.todo.model.dto.CompletedTodoDTO;
 import com.sj.todo.model.vo.Todo;
 import com.sj.todo.service.TodoServiceImpl;
 
@@ -41,7 +41,7 @@ public class TodoAPIController {
 	// 할 일 완료 처리
 	@PatchMapping("/todos")
 	@ResponseBody
-	public String updateTodo(TodoUpdateDTO todoUpdateDTO) {
+	public String updateTodo(CompletedTodoDTO todoUpdateDTO) {
 		System.out.println(todoUpdateDTO);
 		
 		int result = todoService.updateTodo(todoUpdateDTO);

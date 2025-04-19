@@ -8,6 +8,7 @@ $(document).ready(function() {
     submitCompletedTodoBtn();
     detailModalFunc();
     deleteTodoFunc();
+    updateTodoPage();
 });
 
 // 제목 글자 수 제한
@@ -287,6 +288,29 @@ const deleteTodoFunc = () => {
                     }).then((result) => {       
                         if(result.isConfirmed) location.reload(true); 
                     });
+                }
+            }
+        });
+    });
+}
+
+// 수정페이지 이동
+const updateTodoPage = () => {
+    $("#todoModal #modifyBtn").click(() => {
+        $('#todoModal').modal("hide");
+        const todoNo = $("#todoModal .todo-no").text();
+        $.ajax({
+            url: "/todo/todos/edit",
+            method: "get",
+            data: {
+                no: todoNo
+            },
+            dataType: "html",
+            success: (data) => {
+                if(data) {
+                    $("#mainContent").html(data);
+                } else {
+                    $("#mainContent").html("<p>데이터가 없습니다.</p>");
                 }
             }
         });

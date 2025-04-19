@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sj.todo.model.dao.TodoDAO;
 import com.sj.todo.model.dto.TodoListDTO;
-import com.sj.todo.model.dto.TodoUpdateDTO;
+import com.sj.todo.model.dto.CompletedTodoDTO;
 import com.sj.todo.model.vo.Todo;
 
 @Service
@@ -31,7 +31,7 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public int updateTodo(TodoUpdateDTO todoUpdateDTO) {
+	public int updateTodo(CompletedTodoDTO todoUpdateDTO) {
 		return todoDAO.updateTodo(todoUpdateDTO);
 	}
 

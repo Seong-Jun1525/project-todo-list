@@ -1,14 +1,11 @@
 package com.sj.todo.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.todo.model.dto.TodoListDTO;
@@ -44,5 +41,18 @@ public class TodoController {
 		Todo todo = todoService.findTodoById(no);
 		
 		return todo;
+	}
+	
+	// 할 일 수정 페이지
+	@GetMapping("/todos/edit")
+	public String updateTodoPage(int no, Model model) {
+		System.out.println("수정!! : " + no);
+		Todo todo = todoService.findTodoById(no);
+		
+		System.out.println(todo);
+		
+		model.addAttribute("todo", todo);
+		
+		return "/pages/updateTodo";
 	}
 }

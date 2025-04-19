@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sj.todo.model.dto.TodoListDTO;
-import com.sj.todo.model.dto.TodoUpdateDTO;
+import com.sj.todo.model.dto.CompletedTodoDTO;
 import com.sj.todo.model.vo.Todo;
 
 @Mapper
@@ -15,7 +15,7 @@ public interface TodoDAO {
 
 	ArrayList<TodoListDTO> selectTodoList();
 
-	int updateTodo(TodoUpdateDTO todoUpdateDTO);
+	int updateTodo(CompletedTodoDTO todoUpdateDTO);
 
 	Todo findTodoById(int no);
 
