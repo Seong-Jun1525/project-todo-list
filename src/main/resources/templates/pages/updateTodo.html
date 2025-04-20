@@ -1,5 +1,5 @@
 <div xmlns="http://www.thymeleaf.org" th:fragment="updateTodoFragment">
-	<div id="updateTodoForm" class="todo-form">
+	<form id="updateTodoForm" class="todo-form" th:action="@{/todo/api/todos}">
 		<div class="mb-3">
 			<label for="todoTitle" class="form-label">제목</label>
 			<input type="text" th:value="${todo.title}" name="title" class="form-control" id="todoTitle" placeholder="">
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end">
-			<button id="registerTodoBtn" class="btn btn-secondary">추가</button>
+			<button id="updateTodoBtn" class="btn btn-secondary">수정</button>
 		</div>
-	</div>
+	</form>
 </div>

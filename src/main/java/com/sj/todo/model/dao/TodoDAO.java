@@ -15,7 +15,7 @@ public interface TodoDAO {
 
 	ArrayList<TodoListDTO> selectTodoList();
 
-	int updateTodo(CompletedTodoDTO todoUpdateDTO);
+	int completedTodo(CompletedTodoDTO todoUpdateDTO);
 
 	Todo findTodoById(int no);
 

@@ -1,8 +1,9 @@
 // 할 일 추가 버튼 클릭 시 유효성 검사하기
 $(document).ready(function() {
     console.log("todo!");
-    checkInputTitleCount();
-    checkInputContentCount();
+    setInitialCount();
+    // checkInputTitleCount();
+    // checkInputContentCount();
     clickRegisterBtn();
     doneAllCheck();
     submitCompletedTodoBtn();
@@ -11,42 +12,44 @@ $(document).ready(function() {
     updateTodoPage();
 });
 
-// 제목 글자 수 제한
-const checkInputTitleCount = () => {
-    $("#todoTitle").keyup((e) => {
-        let count = e.target.value.length;
+// 제목 입력 글자 수 제한
+$(document).on("keyup", "#todoTitle", function (e) {
+    let count = e.target.value.length;
 
-        if(count > 20) {
-            const title = e.target.value.slice(0, 20);
-            Swal.fire({
-                title: "제목 글자 수 제한",
-                icon: "warning",
-                text: "제목 글자 수는 20자 이하입니다."
-            })
-            e.target.value = title;
-        } else {
-            $("#todoTitleCount").text(count);
-        }
-    });
-}
+    if (count > 20) {
+        const title = e.target.value.slice(0, 20);
+        Swal.fire({
+            title: "제목 글자 수 제한",
+            icon: "warning",
+            text: "제목 글자 수는 20자 이하입니다.",
+        });
+        e.target.value = title;
+    } else {
+        $("#todoTitleCount").text(count);
+    }
+});
 
-// 내용 글자 수 제한
-const checkInputContentCount = () => {
-    $("#todoContent").keyup((e) => {
-        let count = e.target.value.length;
+// 내용 입력 글자 수 제한
+$(document).on("keyup", "#todoContent", function (e) {
+    let count = e.target.value.length;
 
-        if(count > 100) {
-            const content = e.target.value.slice(0, 100);
-            Swal.fire({
-                title: "내용 글자 수 제한",
-                icon: "warning",
-                text: "내용 글자 수는 100자 이하입니다."
-            })
-            e.target.value = content;
-        } else {    
-            $("#todoContentCount").text(count);
-        }
-    });
+    if (count > 100) {
+        const content = e.target.value.slice(0, 100);
+        Swal.fire({
+            title: "내용 글자 수 제한",
+            icon: "warning",
+            text: "내용 글자 수는 100자 이하입니다.",
+        });
+        e.target.value = content;
+    } else {
+        $("#todoContentCount").text(count);
+    }
+});
+
+// 글자 수 초기 값 설정
+const setInitialCount = () => {
+    $("#todoTitleCount").text($("#todoTitle").val().length);
+    $("#todoContentCount").text($("#todoContent").val().length);
 }
 
 // 등록 버튼 클릭 이벤트
@@ -220,7 +223,7 @@ const submitCompletedTodoBtn = () => {
     });
 }
 
-// 
+// 할 일 상세 정보 모달
 const detailModalFunc = () => {
     const $todoList = $("#todoTable tbody tr td[data-url]");
     console.log($todoList);
@@ -309,10 +312,16 @@ const updateTodoPage = () => {
             success: (data) => {
                 if(data) {
                     $("#mainContent").html(data);
+                    setInitialCount();
                 } else {
                     $("#mainContent").html("<p>데이터가 없습니다.</p>");
                 }
             }
         });
     });
+}
+
+// 수정 기능
+const updateTodo = () => {
+    
 }

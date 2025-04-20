@@ -31,8 +31,8 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public int updateTodo(CompletedTodoDTO todoUpdateDTO) {
-		return todoDAO.updateTodo(todoUpdateDTO);
+	public int completedTodo(CompletedTodoDTO todoUpdateDTO) {
+		return todoDAO.completedTodo(todoUpdateDTO);
 	}
 
 	@Override

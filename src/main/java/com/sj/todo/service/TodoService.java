@@ -9,7 +9,7 @@ import com.sj.todo.model.vo.Todo;
 public interface TodoService {
 	ArrayList<TodoListDTO> selectTodoList();
 	int insertTodo(Todo todo);
-	int updateTodo(CompletedTodoDTO todoUpdateDTO);
+	int completedTodo(CompletedTodoDTO todoUpdateDTO);
 	Todo findTodoById(int no);
 	int deleteTodo(int no);
 }

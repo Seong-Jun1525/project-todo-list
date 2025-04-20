@@ -8,7 +8,7 @@
 		VALUES(SEQ_TNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT)
 	</insert>
 	
-	<update id="updateTodo">
+	<update id="completedTodo">
 		UPDATE TB_TODO SET 
 			DONE = 'Y'
 		WHERE 
