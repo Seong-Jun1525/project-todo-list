@@ -1,5 +1,6 @@
 <div xmlns="http://www.thymeleaf.org" th:fragment="updateTodoFragment">
-	<form id="updateTodoForm" class="todo-form" th:action="@{/todo/api/todos}">
+	<form id="updateTodoForm" class="todo-form" th:action="@{todos/edit}" th:method="put">
+		<input type="hidden" name="no" th:value="${todo.no}" />
 		<div class="mb-3">
 			<label for="todoTitle" class="form-label">제목</label>
 			<input type="text" th:value="${todo.title}" name="title" class="form-control" id="todoTitle" placeholder="">

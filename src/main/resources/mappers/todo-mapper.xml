@@ -17,6 +17,13 @@
 			</foreach>
 	</update>
 	
+	<update id="updateTodo">
+		UPDATE TB_TODO SET
+			TITLE = #{title},
+			CONTENT = #{content}
+		WHERE NO = #{no}
+	</update>
+	
 	<delete id="deleteTodo">
 		DELETE FROM TB_TODO
 		WHERE NO = #{no}

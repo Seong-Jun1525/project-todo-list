@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sj.todo.model.dto.CompletedTodoDTO;
+import com.sj.todo.model.dto.UpdateTodoDTO;
 import com.sj.todo.model.vo.Todo;
 import com.sj.todo.service.TodoServiceImpl;
 
@@ -52,12 +53,6 @@ public class TodoAPIController {
 		} else {
 			return "failed";
 		}
-	}
-	
-	// 할 일 수정
-	@PutMapping("/todos")
-	public String updateTodo() {
-		return "";
 	}
 	
 	// 할 일 삭제 처리

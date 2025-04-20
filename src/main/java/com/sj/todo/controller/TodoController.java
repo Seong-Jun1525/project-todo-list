@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sj.todo.model.dto.TodoListDTO;
+import com.sj.todo.model.dto.UpdateTodoDTO;
 import com.sj.todo.model.vo.Todo;
 import com.sj.todo.service.TodoServiceImpl;
 
@@ -54,5 +56,15 @@ public class TodoController {
 		model.addAttribute("todo", todo);
 		
 		return "/pages/updateTodo";
+	}
+	
+	// 할 일 수정
+	@PutMapping("/todos/edit")
+	public String updateTodo(UpdateTodoDTO updateTodoDTO) {
+		System.out.println(updateTodoDTO);
+		
+		int result = todoService.updateTodo(updateTodoDTO);
+		
+		return "redirect:/";
 	}
 }
